@@ -1,8 +1,8 @@
 class Smug < Formula
   desc "Automate your tmux workflow"
   homepage "https://github.com/ivaaaan/smug"
-  url "https://github.com/ivaaaan/smug/archive/refs/tags/v0.3.4.tar.gz"
-  sha256 "c398b2d7094cb961a8c8f42338b669462d4f2413363ef704d10fc004fceabb02"
+  url "https://github.com/ivaaaan/smug/archive/refs/tags/v0.3.5.tar.gz"
+  sha256 "56a49f3eff84be8f7cc1c202f5223f6ceebbe5236095dcb669473d5659eba45f"
   license "MIT"
 
   bottle do
@@ -24,8 +24,9 @@ class Smug < Formula
   end
 
   test do
-    (testpath/"test.yml").write <<~EOF
+    (testpath/".config/smug/test.yml").write <<~EOF
       session: homebrew-test-session
+      root: .
       windows:
         - name: test
     EOF
@@ -33,7 +34,7 @@ class Smug < Formula
     assert_equal(version, shell_output(bin/"smug").lines.first.split("Version").last.chomp)
 
     with_env(TERM: "screen-256color") do
-      system bin/"smug", "start", "--file", testpath/"test.yml", "--detach"
+      system bin/"smug", "start", "--file", testpath/".config/smug/test.yml", "--detach"
     end
 
     assert_empty shell_output("tmux has-session -t homebrew-test-session")
