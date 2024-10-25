@@ -6,18 +6,12 @@ class Civl < Formula
   sha256 "daf5c5a7295909d45a26d8775a8e7677495d69ab9c303638394ec189c4956b0e"
   license all_of: ["GPL-3.0-or-later", "LGPL-3.0-or-later", "BSD-3-Clause"]
 
-  livecheck do
-    url "https://vsl.cis.udel.edu/lib/sw/civl/current/latest/release/"
-    regex(/href=.*?CIVL[._-]v?(\d+(?:[._-]\d+)+)\.t/i)
-    strategy :page_match do |page, regex|
-      page.scan(regex).map { |match| match[0].tr("_", "-") }
-    end
-  end
-
   bottle do
     rebuild 1
     sha256 cellar: :any_skip_relocation, all: "71c991aa3a7b29a8c41578d2220e02bbaad9b42d000b3119a0f054bd57892f82"
   end
+
+  deprecate! date: "2024-10-25", because: :repo_removed
 
   depends_on "openjdk"
   depends_on "z3"
