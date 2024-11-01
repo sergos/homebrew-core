@@ -59,6 +59,7 @@ class Tarantool < Formula
       -DENABLE_BUNDLED_LIBUNWIND=OFF
       -DENABLE_BUNDLED_LIBYAML=OFF
       -DENABLE_BUNDLED_ZSTD=OFF
+      -DLUAJIT_NO_UNWIND=ON
     ]
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
